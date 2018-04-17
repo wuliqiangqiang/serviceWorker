@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>webWorker</title>
+</head>
+
+<body>
+    <script>
+        var worker = new Worker("worker.js");
+        worker.postMessage("给worker.js本身传递了，这句话");
+        worker.onmessage = function(e) {
+            console.log('worker返回的', e.data)
+        };
+    </script>
+</body>
+
+</html>

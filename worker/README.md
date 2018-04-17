@@ -5,3 +5,55 @@
 
 - worker子线程，不会影响主线程，不会阻塞主线程
 - worker子线程，不能操作DOM
+
+### 传递传参 && 接受消息
+----
+
+index.html
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>webWorker</title>
+</head>
+
+<body>
+    <script>
+        var worker = new Worker("worker.js");
+        worker.postMessage("给worker.js本身传递了，这句话");
+        worker.onmessage = function(e) {
+            console.log('worker返回的', e.data)
+        };
+    </script>
+</body>
+
+</html>
+```
+
+public/worker.js
+```js
+onmessage = function(e) {
+    // console.log(e);
+    console.log('worker接收到的内容是：', e.data);
+    postMessage('worker接受到了，且返回了这句话');
+}
+```
+
+> window.postMessage(msg,targetOrigin) 发送
+- msg : 一切javascript参数
+- targetOrigin : 这个参数称作“目标域”，注意啦，是目标域不是本域！比如，你想在2.com的网页上往1.com网页上传消息，那么这个参数就是“http://1.com/”，而不是2.com.
+
+
+> window.onmessage((e)=>{e.data}) 接受
+- e.data 接受到的内容
+
+### 异常处理
+-----
+```js
+worker.onerror = function(e){
+    console.log("error at "+e.filename ":" + e.lineno + e.message)
+}
+```
+
