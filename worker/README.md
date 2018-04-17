@@ -57,3 +57,16 @@ worker.onerror = function(e){
 }
 ```
 
+
+### 载入工具类函数
+-----
+```js
+importScripts('import-test.js');
+```
+
+### 结束worker进程
+-----
+如果不结束，那么这个子线程就会一直占用浏览器内存空间
+```js
+worker.terminate();
+```
