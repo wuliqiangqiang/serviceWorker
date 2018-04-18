@@ -1,7 +1,9 @@
+//self来获取worker自带的方法.
 importScripts('./import-test.js');
-onmessage = function(e) {
+self.onmessage = function(e) {
     // console.log(e);
     console.log('worker接收到的内容是：', e.data);
-    postMessage('worker接受到了，且返回了这句话');
+    self.postMessage('worker接受到了，且返回了这句话');
+    self.close(); //关闭
 }
 test();
