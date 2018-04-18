@@ -1,3 +1,3 @@
 function test() {
-    console.log('test:import success!');
+    console.log('test:import success!!');
 }
